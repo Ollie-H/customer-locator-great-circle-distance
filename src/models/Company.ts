@@ -1,9 +1,9 @@
-import Location from "./Location";
+import Location from './Location';
 
 class Company {
   id: string;
   location: Location;
-  distanceToParloa: number = 0;
+  distanceToParloa = 0;
 
   constructor(id: string, lat: number, long: number) {
     this.id = id;

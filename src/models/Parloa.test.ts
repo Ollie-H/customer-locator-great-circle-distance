@@ -1,21 +1,16 @@
-import Parloa from "./Parloa";
-import Location from "./Location";
-import Company from "./Company";
+import Parloa from './Parloa';
+import Location from './Location';
+import Company from './Company';
 
-const mockCompany = new Company(
-  "47a83870-994d-4741-b169-da4651c5b4c2",
-  51.00189352,
-  18.19409139,
-);
+const mockCompany = new Company('47a83870-994d-4741-b169-da4651c5b4c2', 51.00189352, 18.19409139);
 const setDistanceToPaloaSpy = jest.spyOn(mockCompany, 'setDistanceToPaloa');
 
-describe("Logger", () => {
-  
+describe('Logger', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  })
+  });
 
-  test("Class is created correctly", () => {
+  test('Class is created correctly', () => {
     const parloa = new Parloa();
     expect(parloa.id).toEqual('parloa');
     expect(parloa.customers).toEqual([]);
@@ -25,7 +20,7 @@ describe("Logger", () => {
     expect(parloa.sortCustomers).toBeInstanceOf(Function);
   });
 
-  test("addCustomer calls setDistanceToPaloa and updates customers", () => {
+  test('addCustomer calls setDistanceToPaloa and updates customers', () => {
     const parloa = new Parloa();
     parloa.addCustomer(mockCompany);
     expect(setDistanceToPaloaSpy).toBeCalledWith(parloa.location);
@@ -33,30 +28,21 @@ describe("Logger", () => {
     expect(parloa.customers[0]).toEqual(mockCompany);
   });
 
-  test("sortCustomers sorts by property desc", () => {
+  test('sortCustomers sorts by property desc', () => {
     const parloa = new Parloa();
     parloa.addCustomer(mockCompany);
-    parloa.addCustomer(new Company(
-      "99999",
-      51.00189352,
-      18.19409139,
-    ));
+    parloa.addCustomer(new Company('99999', 51.00189352, 18.19409139));
     expect(parloa.customers.length).toEqual(2);
     expect(parloa.customers[0].id).toEqual(mockCompany.id);
     expect(parloa.customers[1].id).toEqual('99999');
   });
 
-
-  test("findCustomersWithinDistance finds companies within distance", () => {
+  test('findCustomersWithinDistance finds companies within distance', () => {
     const parloa = new Parloa();
     parloa.addCustomer(mockCompany);
-    parloa.addCustomer(new Company(
-      "99999",
-      53.14583735,
-      13.23311883
-    ));
+    parloa.addCustomer(new Company('99999', 53.14583735, 13.23311883));
     const customersWithinDistance = parloa.findCustomersWithinDistance(100);
     expect(customersWithinDistance.length).toEqual(1);
-    expect(customersWithinDistance[0].id).toEqual("99999");
+    expect(customersWithinDistance[0].id).toEqual('99999');
   });
 });

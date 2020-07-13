@@ -1,4 +1,3 @@
-
 // ...
 // it('should reject if SIGINT is sent', function () {
 //   let emitter = new EventEmitter();
@@ -18,12 +17,12 @@
 //   return promise;
 // });
 
-import run from "./app";
-import { EventEmitter } from "events"; 
+import run from './app';
+import { EventEmitter } from 'events';
 import readline from 'readline';
-import CustomerFileParser from "./util/CustomerFileParser";
-import Parloa from "./models/Parloa";
-import Logger from "./util/Logger";
+import CustomerFileParser from './util/CustomerFileParser';
+import Parloa from './models/Parloa';
+import Logger from './util/Logger';
 
 const parloa = new Parloa();
 const logger = new Logger(jest.fn());
@@ -42,40 +41,37 @@ jest.mock('readline');
 const parseLineSpy = jest.spyOn(customerFileParser, 'parseLine').mockImplementation(() => null);
 const inviteCustomersSpy = jest.spyOn(customerFileParser, 'inviteCustomers').mockImplementation(() => null);
 
-describe("App file", () => {
+describe('App file', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-    beforeEach(() => {
-      jest.clearAllMocks();
-    })
-  
-    afterAll(() => {
-      jest.resetAllMocks();
-    });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
 
-    test("create interface is called", () => {
-      run(customerFileParser);
-      expect((readline.createInterface as jest.Mock)).toBeCalled();
-    });
+  test('create interface is called', () => {
+    run(customerFileParser);
+    expect(readline.createInterface as jest.Mock).toBeCalled();
+  });
 
-    test("parseLine & inviteCustomers are not called before events are fired", () => {
-      run(customerFileParser);
-      expect(parseLineSpy).not.toBeCalled();
-      expect(inviteCustomersSpy).not.toBeCalled();
-    });
+  test('parseLine & inviteCustomers are not called before events are fired', () => {
+    run(customerFileParser);
+    expect(parseLineSpy).not.toBeCalled();
+    expect(inviteCustomersSpy).not.toBeCalled();
+  });
 
-    test("'line' event calls parseLine", () => {
-      run(customerFileParser);
-      emitter.emit('line', "LINE OF MOCK TEXT");
-      expect(parseLineSpy).toBeCalledWith("LINE OF MOCK TEXT");
-      expect(inviteCustomersSpy).not.toBeCalled();
-    });
+  test("'line' event calls parseLine", () => {
+    run(customerFileParser);
+    emitter.emit('line', 'LINE OF MOCK TEXT');
+    expect(parseLineSpy).toBeCalledWith('LINE OF MOCK TEXT');
+    expect(inviteCustomersSpy).not.toBeCalled();
+  });
 
-    test("'close' event calls inviteCustomers", () => {
-      run(customerFileParser);
-      emitter.emit('close');
-      expect(parseLineSpy).not.toBeCalled();
-      expect(inviteCustomersSpy).toBeCalled();
-    });
-
+  test("'close' event calls inviteCustomers", () => {
+    run(customerFileParser);
+    emitter.emit('close');
+    expect(parseLineSpy).not.toBeCalled();
+    expect(inviteCustomersSpy).toBeCalled();
+  });
 });
-    

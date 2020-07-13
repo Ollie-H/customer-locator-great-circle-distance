@@ -1,9 +1,9 @@
-import Parloa from "../models/Parloa";
-import Logger from "./Logger";
-import Company from "../models/Company";
+import Parloa from '../models/Parloa';
+import Logger from './Logger';
+import Company from '../models/Company';
 
 class CustomerFileParser {
-  regex: RegExp =  /^id\:(?:\s+)?([a-z0-9\-]+),(?:\s+)?lat:(?:\s+)?([0-9.]+),(?:\s+)?long:?(?:\s+)?([0-9.]+),/;
+  regex = /^id\:(?:\s+)?([a-z0-9\-]+),(?:\s+)?lat:(?:\s+)?([0-9.]+),(?:\s+)?long:?(?:\s+)?([0-9.]+),/;
   filePath: string;
   parloa: Parloa;
   logger: Logger;
@@ -22,21 +22,17 @@ class CustomerFileParser {
       return;
     }
 
-    const [_, id, lat, long] = match;
-    
-    this.parloa.addCustomer(
-      new Company(
-        id,
-        parseFloat(lat),
-        parseFloat(long),
-      )
-    );
+    const [, id, lat, long] = match;
+
+    this.parloa.addCustomer(new Company(id, parseFloat(lat), parseFloat(long)));
   }
 
-  inviteCustomers(distance: number = 100) {
+  inviteCustomers(distance = 100) {
     this.parloa.sortCustomers('id');
     this.parloa.findCustomersWithinDistance(distance).forEach((customer) => {
-      this.logger.log(`${customer.id}: Invite customer ${customer.id} to company anniversary, distace to Paloa (km): ${customer.distanceToParloa}`)
+      this.logger.log(
+        `${customer.id}: Invite customer ${customer.id} to company anniversary, distace to Paloa (km): ${customer.distanceToParloa}`,
+      );
     });
   }
 }

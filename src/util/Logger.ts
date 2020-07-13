@@ -1,4 +1,4 @@
-type LogMethod = (message: string) => void; 
+type LogMethod = (message: string) => void;
 
 class Logger {
   logMethod: LogMethod;
