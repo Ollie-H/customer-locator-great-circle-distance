@@ -5,9 +5,9 @@ class Company {
   location: Location;
   distanceToParloa: number = 0;
 
-  constructor(id: string, long: number, lat: number) {
+  constructor(id: string, lat: number, long: number) {
     this.id = id;
-    this.location = new Location(long, lat);
+    this.location = new Location(lat, long);
   }
 
   setDistanceToPaloa(parloaLocation: Location) {
