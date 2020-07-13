@@ -1,4 +1,4 @@
-# music-venture-code-test
+# Customer locator using great circle distance
 Node application for calculating which customers (in customers.txt) are located within a 100km radius to a central office location (lat/long) to invite to an event.
 
 ### Getting started
