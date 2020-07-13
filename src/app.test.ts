@@ -1,22 +1,3 @@
-// ...
-// it('should reject if SIGINT is sent', function () {
-//   let emitter = new EventEmitter();
-//   sandbox.stub(readline, 'createInterface', function () {
-//     emitter.close = () => {};
-//     return emitter;
-//   });
-
-//   let promise = getMsg().then(function() {
-//     throw Error('should not have resolved');
-//   }, function (err) {
-//     expect(true).to.be.equal(true);
-//   });
-
-//   emitter.emit('SIGINT');
-
-//   return promise;
-// });
-
 import run from './app';
 import { EventEmitter } from 'events';
 import readline from 'readline';
